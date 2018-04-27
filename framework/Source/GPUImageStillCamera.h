@@ -12,6 +12,10 @@ void GPUImageCreateResizedSampleBuffer(CVPixelBufferRef cameraFrame, CGSize fina
 // Only reliably set inside the context of the completion handler of one of the capture methods
 @property (readonly) NSDictionary *currentCaptureMetadata;
 
+- (id)initWithSessionPreset:(NSString *)sessionPreset
+             cameraPosition:(AVCaptureDevicePosition)cameraPosition
+              captureAsJPEG:(BOOL)captureAsJPEG;
+
 // Photography controls
 - (void)capturePhotoAsSampleBufferWithCompletionHandler:(void (^)(CMSampleBufferRef imageSampleBuffer, NSError *error))block;
 - (void)capturePhotoAsImageProcessedUpToFilter:(GPUImageOutput<GPUImageInput> *)finalFilterInChain withCompletionHandler:(void (^)(UIImage *processedImage, NSError *error))block;
