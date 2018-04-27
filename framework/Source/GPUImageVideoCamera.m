@@ -70,7 +70,12 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
     return self;
 }
 
-- (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition; 
+- (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition;
+{
+    return [self initWithSessionPreset:sessionPreset cameraPosition:cameraPosition caputreAsYUV:YES];
+}
+
+- (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition caputreAsYUV:(BOOL)argCaputreAsYUV;
 {
 	if (!(self = [super init]))
     {
@@ -87,7 +92,7 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
     capturePaused = NO;
     outputRotation = kGPUImageNoRotation;
     internalRotation = kGPUImageNoRotation;
-    captureAsYUV = YES;
+    captureAsYUV = argCaputreAsYUV;
     _preferredConversion = kColorConversion709;
     
 	// Grab the back-facing or front-facing camera

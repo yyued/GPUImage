@@ -84,6 +84,16 @@ void setColorConversion709( GLfloat conversionMatrix[9] );
  
  @param sessionPreset Session preset to use
  @param cameraPosition Camera to capture from
+ @param caputreAsYUV Camera to capture format as YUV
+ */
+- (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition caputreAsYUV:(BOOL)caputreAsYUV;
+
+/** Begin a capture session
+ 
+ See AVCaptureSession for acceptable values
+ 
+ @param sessionPreset Session preset to use
+ @param cameraPosition Camera to capture from
  */
 - (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition;
 
