@@ -142,7 +142,12 @@ NSString *const kGPUImageYUVVideoRangeConversionForLAFragmentShaderString = SHAD
     return self;
 }
 
-- (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition; 
+- (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition;
+{
+    return [self initWithSessionPreset:sessionPreset cameraPosition:cameraPosition captureAsYUV:YES];
+}
+
+- (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition captureAsYUV:(BOOL)argCaptureAsYUV ;
 {
 	if (!(self = [super init]))
     {
@@ -159,7 +164,7 @@ NSString *const kGPUImageYUVVideoRangeConversionForLAFragmentShaderString = SHAD
     capturePaused = NO;
     outputRotation = kGPUImageNoRotation;
     internalRotation = kGPUImageNoRotation;
-    captureAsYUV = YES;
+    captureAsYUV = argCaptureAsYUV;
     _preferredConversion = kColorConversion709;
     
 	// Grab the back-facing or front-facing camera

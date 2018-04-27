@@ -83,6 +83,15 @@ extern NSString *const kGPUImageYUVVideoRangeConversionForLAFragmentShaderString
  @param sessionPreset Session preset to use
  @param cameraPosition Camera to capture from
  */
+- (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition captureAsYUV:(BOOL)captureAsYUV;
+
+/** Begin a capture session
+ 
+ See AVCaptureSession for acceptable values
+ 
+ @param sessionPreset Session preset to use
+ @param cameraPosition Camera to capture from
+ */
 - (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition;
 
 /** Add audio capture to the session. Adding inputs and outputs freezes the capture session momentarily, so you
