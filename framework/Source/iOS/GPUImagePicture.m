@@ -215,6 +215,32 @@
     return self;
 }
 
+- (id)initWithSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+{
+    if (!(self = [super init]))
+    {
+        return nil;
+    }
+    hasProcessedImage = NO;
+    imageUpdateSemaphore = dispatch_semaphore_create(0);
+    dispatch_semaphore_signal(imageUpdateSemaphore);
+    CVImageBufferRef cameraFrame = CMSampleBufferGetImageBuffer(sampleBuffer);
+    int bufferHeight = (int) CVPixelBufferGetHeight(cameraFrame);
+    runSynchronouslyOnVideoProcessingQueue(^{
+        [GPUImageContext useImageProcessingContext];
+        CVPixelBufferLockBaseAddress(cameraFrame, 0);
+        int bytesPerRow = (int) CVPixelBufferGetBytesPerRow(cameraFrame);
+        pixelSizeOfImage = CGSizeMake(bytesPerRow / 4, bufferHeight);
+        outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:CGSizeMake(bytesPerRow / 4, bufferHeight) onlyTexture:YES];
+        [outputFramebuffer activateFramebuffer];
+        glBindTexture(GL_TEXTURE_2D, [outputFramebuffer texture]);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bytesPerRow / 4, bufferHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, CVPixelBufferGetBaseAddress(cameraFrame));
+        CVPixelBufferUnlockBaseAddress(cameraFrame, 0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    });
+    return self;
+}
+
 // ARC forbids explicit message send of 'release'; since iOS 6 even for dispatch_release() calls: stripping it out in that case is required.
 - (void)dealloc;
 {

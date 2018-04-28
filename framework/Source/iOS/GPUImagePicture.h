@@ -16,6 +16,7 @@
 - (id)initWithCGImage:(CGImageRef)newImageSource;
 - (id)initWithImage:(UIImage *)newImageSource smoothlyScaleOutput:(BOOL)smoothlyScaleOutput;
 - (id)initWithCGImage:(CGImageRef)newImageSource smoothlyScaleOutput:(BOOL)smoothlyScaleOutput;
+- (id)initWithSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
 // Image rendering
 - (void)processImage;
